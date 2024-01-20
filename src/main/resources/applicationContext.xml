@@ -51,6 +51,8 @@
    		<route>
    			<from uri="{{oracle.db.queue.measurmentsevents}}" />
    			<to uri="{{rabbitmq.camel.measurmentevents.uri}}" />
+   			
+   			<log message="Message from oracle AQ: ${body}"/>
    		</route>
    </camelContext>    
 
