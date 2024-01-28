@@ -1,124 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.5.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	
+
 	<groupId>org.mydevnotes.messaging</groupId>
 	<artifactId>camel-aq-rabbitmq-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>camel-aq-rabbitmq-demo</name>
 	<description>Demo project for Oracle AQ - RabbitMQ integration using Spring Boot and Camel</description>
-	
+
 	<properties>
 		<java.version>1.8</java.version>
 		<oracle.version>19.3.0.0</oracle.version>
 		<camel.version>3.11.1</camel.version>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-spring-boot-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
 			<version>${camel.version}</version>
-		</dependency>		
+		</dependency>
 
-		
+
 		<!-- RabbitMQ -->
-		
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring-rabbitmq</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-jackson-starter</artifactId>
 			<version>${camel.version}</version>
-		</dependency>		
-		
-		<!-- JMS  -->
-		
+		</dependency>
+
+		<!-- JMS -->
+
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-jms-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.jms</groupId>
 			<artifactId>javax.jms-api</artifactId>
 			<version>2.0.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
-		</dependency>		
-		
-		
+		</dependency>
+
+
 		<!-- Oracle -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
 			<version>${oracle.version}</version>
-			<scope>runtime</scope>		
+			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
-    		<groupId>com.oracle.database.nls</groupId>
-    		<artifactId>orai18n</artifactId>
+			<groupId>com.oracle.database.nls</groupId>
+			<artifactId>orai18n</artifactId>
 			<version>${oracle.version}</version>
-			<scope>runtime</scope>		
-		</dependency>	
-		
+			<scope>runtime</scope>
+		</dependency>
+
 		<dependency>
-    		<groupId>com.oracle.database.messaging</groupId>
-    		<artifactId>aqapi</artifactId>
+			<groupId>com.oracle.database.messaging</groupId>
+			<artifactId>aqapi</artifactId>
 			<version>${oracle.version}</version>
-			<scope>runtime</scope>		
-		</dependency>	
-		
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- Camel REST API -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-http</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.camel.springboot</groupId>
 			<artifactId>camel-gson-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		
+
+		<!-- log -->
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-log-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -127,7 +136,21 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude> **/*.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
