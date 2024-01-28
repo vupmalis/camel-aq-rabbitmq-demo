@@ -1,0 +1,1 @@
+Spring boot application - demo example project for integration of Advanced Queue to RabbitMQ via Camel.
