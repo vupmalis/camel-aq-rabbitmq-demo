@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://camel.apache.org/schema/spring
+    https://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations" value="${spring.config.location}" />    	
+    </bean>    
+
+	<!-- Oracle AQ -->
+	
+    <bean id="aqJmsFactory" class="oracle.jms.AQjmsFactory" factory-method="getQueueConnectionFactory">
+        <constructor-arg index="0">
+        	<value>${oracle.db.connectionstring}</value>
+        </constructor-arg>
+		<constructor-arg index="1" type="java.util.Properties">
+		 	<value></value>
+        </constructor-arg>        
+    </bean>
+
+    <bean id="aqDbCredentials" class="org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter">
+        <property name="targetConnectionFactory">
+        	<ref bean="aqJmsFactory" />
+        </property>
+        <property name="username"><value>${oracle.db.username}</value></property>
+        <property name="password"><value>${oracle.db.password}</value></property>
+    </bean>    
+    
+   <bean id="oracleQueue" class="org.apache.camel.component.jms.JmsComponent">
+        <property name="connectionFactory" ref="aqDbCredentials"/>
+   </bean>
+   
+   <!-- RabbitMQ -->
+   
+   <bean id="rabbitConnectionFactory" class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+   		<property name="host" value="${rabbitmq.host}"/>
+   		<property name="port" value="${rabbitmq.port}"/>
+   		<property name="username" value="${rabbitmq.username}"/>
+   		<property name="password" value="${rabbitmq.password}"/>
+   		<property name="virtualHost" value="${rabbitmq.camel.measurmentevents.vhost}"/>
+   </bean>
+   
+   
+   <!-- Camel -->
+   
+   <camelContext xmlns="http://camel.apache.org/schema/spring">
+   		<route>
+   			<from uri="{{oracle.db.queue.measurmentsevents}}" />
+   			<to uri="{{rabbitmq.camel.measurmentevents.uri}}" />
+   			
+   			<log message="Message from oracle AQ: ${body}"/>
+   		</route>
+   </camelContext>    
+
+</beans>
