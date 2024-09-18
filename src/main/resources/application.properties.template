@@ -1,0 +1,30 @@
+logging.level.root=INFO
+logging.level.org.springframework.amqp.rabbit.connection=DEBUG
+
+# Oracle db
+oracle.db.connectionstring=jdbc:oracle:thin:@todo:1521/todo
+oracle.db.username=todo
+oracle.db.password=todo
+
+oracle.db.queue.measurmentsevents=oracleQueue:queue:MEASURMENT_WARNINGS
+
+# RabbitMQ config
+rabbitmq.host=todo
+rabbitmq.port=5672
+rabbitmq.username=todo
+rabbitmq.password=todo
+rabbitmq.camel.measurmentevents.uri=spring-rabbitmq:todo
+rabbitmq.camel.measurmentevents.vhost=todo
+
+
+spring.application.context.location=classpath:applicationContext.xml
+spring.main.allow-bean-definition-overriding=true
+
+camel.springboot.jmxEnabled=false
+
+
+# for SQL example
+spring.datasource.url=jdbc:oracle:thin:@todo:1521/todo
+spring.datasource.username=todo
+spring.datasource.password=todo
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
