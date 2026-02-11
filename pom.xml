@@ -94,10 +94,22 @@
 		</dependency>
 
 		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.oracle.database.nls</groupId>
 			<artifactId>orai18n</artifactId>
 			<version>${oracle.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-sql</artifactId>
+			<version>${camel.version}</version>
 		</dependency>
 
 		<dependency>
